@@ -15,6 +15,17 @@ class CalendarioController extends Controller
         $diaDaSemana = $request['diaDaSemana'];
         $dataHoje = $request['dataHoje'];
 
+        $diaSemanaTraduzir = [
+            'Monday' => 'Segunda-feira',
+            'Tuesday' => 'Terça-feira',
+            'Wednesday' => 'Quarta-feira',
+            'Thursday' => 'Quinta-feira',
+            'Friday' => 'Sexta-feira',
+            'Saturday' => 'Sábado',
+            'Sunday' => 'Domingo',
+
+        ];
+
         if (empty($request['ano'])) {
             $ano = date('o');
         }
@@ -49,13 +60,14 @@ class CalendarioController extends Controller
         }
 
 
+
         if (empty($request['diaDaSemana'])) {
             $diaDaSemana = jddayofweek(
                 cal_to_jd(
                     CAL_GREGORIAN,
-                    date('m'),
-                    date('d'),
-                    date('y')
+                    date(empty($request['mes']) ? 'm' : $mes),
+                    date(empty($request['dataHoje']) ? 'd' : $dataHoje),
+                    date(empty($request['ano']) ? 'y' : $ano)
                 ),
                 1
             );
@@ -69,6 +81,7 @@ class CalendarioController extends Controller
                 0
             );
         }
+        $diadaSemanaPT = $diaSemanaTraduzir[$diaDaSemana];
 
 
         if (empty($request['dataHoje'])) {
@@ -78,7 +91,7 @@ class CalendarioController extends Controller
 
         return view('/calendario', [
             'qtDiasNoMes' => $qtDiasNoMes,
-            'diaDaSemana' => $diaDaSemana,
+            'diaDaSemana' => $diadaSemanaPT,
             'mes' => $mes,
             'dataHoje' => $dataHoje,
             'diaDaSemanaIndex' => $diaDaSemanaIndex,
