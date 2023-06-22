@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
 @endpush
 
+@push('script')
+    <script src="{{ asset('js/pages/calendar.js') }}"></script>
+@endpush
+
 @section('content')
     <div class="container-fluid ">
         <div class="row " style="height: 100vh;">
@@ -15,7 +19,7 @@
                     <h1 style="font-size: 12.6rem; text-align: center; color:#fff;">
                         {{ $dataHoje }}
                     </h1>
-                    <p style="font-size: 2.5rem; text-align: center; color:#fff;">Domingo</p>
+                    <p style="font-size: 2.5rem; text-align: center; color:#fff;">{{ $diaDaSemana }}</p>
                 </div>
             </div>
             <div class="col-8">
@@ -62,7 +66,8 @@
 
                                     @for ($i = $primeiroDiaDoMesIndex; $i < 7; $i++)
                                         @if ($diasCounter <= $qtDiasNoMes)
-                                            <td>
+                                            <td class="diasTd">
+
                                                 <div @if ($dataHoje == $diasCounter and ($mes == date('M') or $mes == date('m'))) style="background-color: red; border-radius: 50px; color:#fff; font-weight: bold; cursor: pointer; width:45px; padding: 10px; margin:auto;" @endif
                                                     style="cursor: pointer; width:45px; padding: 10px;  border-radius: 50px; margin:auto; margin-top:5px; ">
                                                     {{ $diasCounter++ }}
@@ -82,15 +87,6 @@
                             @endwhile
                         </table>
 
-
-
-                        {{-- </br></br></br></br></br>
-                        O mês é: {{ $mes }}</br>
-                        O primeiro dia do mês é: {{ $primeiroDiaDoMesIndex }}</br>
-                        Data Hoje: {{ $dataHoje }}</br>
-                        Dia da Semana: {{ $diaDaSemana }}</br>
-                        Dia da Semana Index: {{ $diaDaSemanaIndex }}</br>
-                        Quantidades de dias no mês: {{ $qtDiasNoMes }} </br> --}}
                     </div>
                 </div>
             </div>
